@@ -42,7 +42,20 @@ function domobj(){
       });
     };
 
+    var changeCursor = function() {
+      $(this).css({
+        cursor: "pointer"
+      });
+    };
+
+    var removeItem = function(e) {
+      e.preventDefault();
+      $(this).closest('.item').remove();
+    };
+
     $('.product-container').hover(showDescription, hideDescription).bind(this);
+    $('.remove').hover(changeCursor).bind(this);
+    $('.remove').click(removeItem).bind(this);
   }
 }
 
