@@ -1,32 +1,37 @@
 
 function domobj(){
   var self        =this;
-  self.products   = [];
 
-  self.getproducts = function(url){
-    $.getJSON(url, function(response){
-        for(i=0; i<response.sales.length ; i++){
-          self.products.push( new productobj(response.sales[i], i)  );
-        }
+  self.getProducts = function() {
+    return $.getJSON('data.json');
+  };
+
+  self.getTemplate = function() {
+    return $.get('product-template.html');
+  };
+
+  self.createView = function(products, template) {
+    var productsHtml='';
+    for(i=0; i<products.length ; i++){
+      var product = new productobj(products[i], i);
+      var productHtml = template.replace('{image}', product.photo).replace('{descriptionText}', product.description).replace('{title}', product.title).replace('{tagline}', product.tagline).replace('{url}', product.url);
+      if (i % 3 == 0 ){  productsHtml += "<div class='row'>"; console.log("START") }
+      productsHtml += productHtml;
+      if ((i % 3 == 2) || i == (products.length-1) ){productsHtml += "</div>";console.log("FINISH")}
+    }
+    $("#content").append(productsHtml);
+  };
+
+  self.render = function(){
+    $.when(self.getProducts(), self.getTemplate()).done(function(products, template){
+      products = products[0].sales;
+      template = template[0];
+      self.createView(products, template);   
+      self.addEventhandlers();
     });
-  }
-    
-  self.updateproducthtml = function(){
-    for( i=0; i< self.products.length ; i++){
-      self.products[i].updatehtml();
-    }
-  }
+  };
   
-  self.updatedom = function(){
-    var i=0
-    thishtml='';
-    for( i=0; i< self.products.length ; i++){
-      if (i % 3 == 0 ){  thishtml += "<div class='row'>"; console.log("START") }
-      thishtml += self.products[i].htmlview;
-      if ((i % 3 == 2) || i == (self.products.length-1) ){thishtml += "</div>";console.log("FINISH")}
-    }
-    $("#content").append(thishtml)
-    
+  self.addEventhandlers = function(){
     var showDescription = function() {
       $(this).find(".descriptionText").css({
         display: "block",
@@ -68,17 +73,9 @@ function productobj(product, i){
   self.url          = product.url
   self.htmlview     = ""
   self.index        = i
-  
-  self.updatehtml= function(){
-    $.get('product-template.html', function(template){
-      self.htmlview = template.replace('{image}', self.photo).replace('{descriptionText}', self.description).replace('{title}', self.title).replace('{tagline}', self.tagline).replace('{url}', self.url);
-    });
-  }
 }
 
 
 var page=new domobj();
-page.getproducts('data.json');
-setTimeout("console.log('building html');page.updateproducthtml();",20);
-setTimeout("page.updatedom()",1000)
+page.render();
 
