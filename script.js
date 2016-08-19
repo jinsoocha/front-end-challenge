@@ -33,16 +33,16 @@ function domobj(){
         zIndex: 1000000,
         color: "white",
         backgroundColor: "rgba(0, 0, 0, 0.6)"
-      })
+      });
     };
 
     var hideDescription = function() {
       $(this).find(".descriptionText").css({
         display: "none"
-      })
+      });
     };
 
-    $('.product-container').hover(showDescription, hideDescription).bind(this)
+    $('.product-container').hover(showDescription, hideDescription).bind(this);
   }
 }
 
@@ -55,11 +55,10 @@ function productobj(product, i){
   self.url          = product.url
   self.htmlview     = ""
   self.index        = i
-  self.custom_class = "col"+ ((i % 3) +1)
   
   self.updatehtml= function(){
     $.get('product-template.html', function(template){
-      self.htmlview = template.replace('{image}', self.photo).replace('{descriptionText}', self.description).replace('{title}', self.title).replace('{tagline}', self.tagline).replace('{url}', self.url).replace('{custom_class}', self.custom_class);
+      self.htmlview = template.replace('{image}', self.photo).replace('{descriptionText}', self.description).replace('{title}', self.title).replace('{tagline}', self.tagline).replace('{url}', self.url);
     });
   }
 }

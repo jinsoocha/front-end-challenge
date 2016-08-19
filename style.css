@@ -1,10 +1,10 @@
-body{font-family:"Arial"; display:flex; justify-content:center;}
+body{margin: 100px 100px 300px 100px;}
 a{text-decoration:none;}
 
-.product-container{position:relative; width:500px; height:400px; border:1px solid #aaa; margin:10px;}
+.page-header{text-align:center; margin-bottom:100px;}
+.product-container{padding:10px;}
 .product-container img{width:100%; height:auto;}
-.row{width:100%; display:flex; flex-direction:row;}
 .title{font-size:20px; text-align:center;}
 .tagline{text-align:center;}
 .description{padding:10px;}
-.descriptionText{display:none; position:absolute; width:480px; height:380px; padding:10px; font-size:25px; overflow-y:auto;}
+.descriptionText{display:none; position:absolute; margin-right:10px; height:100%; padding:10px; font-size:25px; overflow-y:auto;}
