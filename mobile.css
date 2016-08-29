@@ -1,0 +1,36 @@
+.page-header {
+  margin: 20px;
+}
+
+.page-title {
+  font-size: 20px;
+}
+
+.lead {
+  margin: 0;
+}
+
+.details, .details:hover {
+  height: auto;
+  width: 100%;
+  display: block;
+  opacity: 1;
+  position: relative;
+  overflow-y: hidden;
+  font-size: 18px;
+  color: black;
+  background-color: white;
+  margin: 0 0 30px 0;
+  padding: 0;
+}
+
+.remove {
+  visibility: hidden;
+  float: left;
+  color: grey;
+}
+
+.remove:after {
+  visibility: visible;
+  content: "Click to skip this product"
+}
